@@ -17,7 +17,7 @@ package Meeting01_GraphingApp;
      1. Play with the app. What does each field do? What's the difference if you change one field? What if you use smaller/bigger increment factor?
      2. Change the function into another continuous linear/polynomial function
      3. Change the function into other functions with discontinuity, such as 1/x. What happened?
-     4. Change the function into trigonometric functions or any function that needs java.util.Math library
+     4. Change the function into trigonometric functions or any function that needs java.lang.Math library
      5. Change the function and fields into parametric functions
      6. Change the coordinates into polar coordinates
 */
