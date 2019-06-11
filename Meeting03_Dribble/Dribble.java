@@ -34,7 +34,9 @@ import java.util.ArrayList;
         > Done.
         > Did some fine tuning.
      5. Create diagonal walls and modify the calculation to adjust with diagonal walls
+        > Roger!
      6. Create UI to customize the walls
+        > Ready to Deploy!
  */
 
 public class Dribble {
@@ -70,6 +72,27 @@ public class Dribble {
     private JButton addBall;
     private JButton delBall;
 
+    // wall creation window
+    // private JFrame wallWindow;
+
+    // private JLabel wallStartX_Label;
+    // private JLabel wallStartY_Label;
+    // private JLabel wallEndX_Label;
+    // private JLabel wallEndY_Label;
+    // private JLabel wallColor_Label;
+
+    // private JTextField wallStartX_Input;
+    // private JTextField wallStartY_Input;
+    // private JTextField wallEndX_Input;
+    // private JTextField wallEndY_Input;
+    // private JPanel wallColor_Panel;
+    // private JTextField wallColorRed_Input;
+    // private JTextField wallColorGreen_Input;
+    // private JTextField wallColorBlue_Input;
+
+    // private JButton addWall;
+    // private JButton delWall;
+
     private ArrayList<Wall> walls = new ArrayList<>();
     private ArrayList<Ball> balls = new ArrayList<>();
 
@@ -86,6 +109,7 @@ public class Dribble {
         ballWindow.setSize(300,300);
         ballWindow.setLayout(new GridLayout(10, 2));
         ballWindow.setResizable(false);
+        ballWindow.setAlwaysOnTop(true);
 
         ballPosX_Label = new JLabel("X Position:");
         ballPosY_Label = new JLabel("Y Position:");
@@ -183,13 +207,71 @@ public class Dribble {
         ballWindow.setLocation(1500, 300);
         ballWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
+        // wall creation window
+        // wallWindow = new JFrame("Create Wall");
+        // wallWindow.setSize(300,300);
+        // wallWindow.setLayout(new GridLayout(6, 2));
+        // wallWindow.setResizable(false);
+        // wallWindow.setAlwaysOnTop(true);
+
+        // wallStartX_Label = new JLabel("Start X:");
+        // wallStartY_Label = new JLabel("Start Y:");
+        // wallEndX_Label = new JLabel("End X:");
+        // wallEndY_Label = new JLabel("End Y:");
+        // wallColor_Label = new JLabel("Color (R, G, B):");
+
+        // wallStartX_Input = new JTextField("50");
+        // wallStartY_Input = new JTextField("600");
+        // wallEndX_Input = new JTextField("500");
+        // wallEndY_Input = new JTextField("100");
+        // wallColor_Panel = new JPanel(new GridLayout(1, 3));
+        // wallColorRed_Input = new JTextField("255");
+        // wallColorGreen_Input = new JTextField("0");
+        // wallColorBlue_Input = new JTextField("0");
+        // wallColor_Panel.add(wallColorRed_Input);
+        // wallColor_Panel.add(wallColorGreen_Input);
+        // wallColor_Panel.add(wallColorBlue_Input);
+
+        // addWall = new JButton("Add");
+        // addWall.addActionListener(new ActionListener(){
+        
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         walls.add(new Wall(
+        //             Integer.parseInt(wallStartX_Input.getText()),
+        //             Integer.parseInt(wallStartY_Input.getText()),
+        //             Integer.parseInt(wallEndX_Input.getText()),
+        //             Integer.parseInt(wallEndY_Input.getText()),
+        //             new Color(Integer.parseInt(wallColorRed_Input.getText()), Integer.parseInt(wallColorGreen_Input.getText()), Integer.parseInt(wallColorBlue_Input.getText()))
+        //         ));
+        //     }
+        // });
+        // delWall = new JButton("Delete Last Wall");
+        // delWall.addActionListener(new ActionListener(){
+        
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         walls.remove(walls.size()-1);
+        //     }
+        // });
+
+        // wallWindow.add(wallStartX_Label);
+        // wallWindow.add(wallStartX_Input);
+        // wallWindow.add(wallStartY_Label);
+        // wallWindow.add(wallStartY_Input);
+        // wallWindow.add(wallEndX_Label);
+        // wallWindow.add(wallEndX_Input);
+        // wallWindow.add(wallEndY_Label);
+        // wallWindow.add(wallEndY_Input);
+        // wallWindow.add(wallColor_Label);
+        // wallWindow.add(wallColor_Panel);
+        // wallWindow.add(addWall);
+        // wallWindow.add(delWall);
+        // wallWindow.setLocation(1500, 600);
+        // wallWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
         // create the walls
         createWalls();
-
-        // create the ball
-        // balls.add(new Ball(300, 200, 50, 10, 10, Color.blue));
-        // balls.add(new Ball(300, 100, 20, 3, -3, Color.green));
-        // balls.add(new Ball(150, 150, 20, 3, -3, Color.gray));
 
         drawingArea = new DrawingArea(frame.getWidth(), frame.getHeight(), balls, walls);
         frame.addKeyListener(new KeyAdapter() {
@@ -199,6 +281,9 @@ public class Dribble {
                 if(e.getKeyCode() == KeyEvent.VK_F12) {
                     ballWindow.setVisible(true);
                 }
+                // if(e.getKeyCode() == KeyEvent.VK_F11) {
+                //     wallWindow.setVisible(true);
+                // }
             }
         });
         frame.add(drawingArea);
@@ -212,7 +297,7 @@ public class Dribble {
         walls.add(new Wall(1300, 100, 50, 100, Color.black));	// horizontal top
         walls.add(new Wall(50, 600, 1300, 600, Color.black));  // horizontal bottom
         walls.add(new Wall(1300, 100, 1300, 600, Color.black));  // vertical right
-        walls.add(new Wall(50, 600, 50, 100, Color.black));  // vertical left
+        walls.add(new Wall(50, 600, 500, 100, Color.black));  // vertical left
     }
 
     public static void main(String[] args) {
