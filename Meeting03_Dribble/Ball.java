@@ -13,7 +13,7 @@ public class Ball {
     private double velocityY;
     private Color ballColor;
     private double e = 0.9;        // ball's coefficient of resistution
-    private final static double GRAVITY = 0.5;  // use custom gravity
+    private static double gravity = 0.9;  // use custom gravity
     private int index;
 
     public Ball(double positionX, double positionY, double radius, double velocityX, double velocityY, Color ballColor, int index, double cor) {
@@ -45,8 +45,8 @@ public class Ball {
     // move the ball by modifying current position, with assumption that time = 1
     public void move() {
         positionX += velocityX;
-        positionY -= (velocityY + GRAVITY/2);
-        velocityY -= GRAVITY;
+        positionY -= (velocityY + gravity/2);
+        velocityY -= gravity;
     }
 
     // check collision between walls and the ball
@@ -73,5 +73,9 @@ public class Ball {
 
     public void setIndex(int i) {
         this.index = i;
+    }
+
+    public static void setGravity(double g) {
+        gravity = g;
     }
 }
