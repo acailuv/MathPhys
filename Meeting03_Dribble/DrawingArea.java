@@ -69,6 +69,10 @@ public class DrawingArea extends JPanel {
             for(Wall w : walls) {
                 w.draw(g);
             }
+
+            // help menu on how to open add ball window
+            g.setColor(Color.black);
+            g.drawString("Press F12 to Open Create Ball Window", 0, 12);
         }
     }
 
