@@ -1,6 +1,7 @@
 package Meeting03_Dribble;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Wall {
@@ -11,8 +12,9 @@ public class Wall {
     private double endY;
     private double height;
     private double width;
+    private int index;
 
-    public Wall (int startX, int startY, int endX, int endY, Color wallColor) {
+    public Wall (int startX, int startY, int endX, int endY, Color wallColor, int index) {
         this.startX = startX;
         this.endX = endX;
         this.startY = startY;
@@ -20,14 +22,32 @@ public class Wall {
         this.wallColor = wallColor;
         this.height = this.endY - this.startY;
         this.width = this.endX - this.startX;
+        this.index = index+1;
     }
 
     // parameter g is graphics object where the wall should be drawn
     public void draw(Graphics g) {
         Color tempColor = g.getColor();
+        Font tempFont = g.getFont();
         g.setColor(wallColor);
         g.drawLine((int) startX, (int) startY, (int) endX, (int) endY);
+        g.setColor(Color.gray);
+        g.setFont(new Font("Consolas", Font.PLAIN, 24));
+        if(height == 0) { //horizontal
+            g.drawOval((int)(endX-width/2), (int)startY-25, 50, 50);
+            g.setColor(Color.black);
+            g.drawString(Integer.toString(index), (int)(endX-width/2)+18, (int)startY+6);
+        } else if (width == 0) { //vertical
+            g.drawOval((int)startX-25, (int)(endY-height/2), 50, 50);
+            g.setColor(Color.black);
+            g.drawString(Integer.toString(index), (int)startX-6, (int)(endY-height/2)+30);
+        } else {
+            g.drawOval((int)(endX-width/2)-18, (int)(endY-height/2)-30, 50, 50);
+            g.setColor(Color.black);
+            g.drawString(Integer.toString(index), (int)(endX-width/2), (int)(endY-height/2));
+        }
         g.setColor(tempColor);
+        g.setFont(tempFont);
     }
 
     // finding the unit normal vector line of a wall
@@ -80,5 +100,25 @@ public class Wall {
 
     public double getWidth() {
         return width;
+    }
+
+    public double getStartX() {
+        return startX;
+    }
+
+    public double getStartY() {
+        return startY;
+    }
+
+    public double getEndX() {
+        return endX;
+    }
+
+    public double getEndY() {
+        return endY;
+    }
+
+    public Color getColor() {
+        return wallColor;
     }
 }
