@@ -12,11 +12,11 @@ public class Ball {
     private double velocityX;                   // ball's velocity
     private double velocityY;
     private Color ballColor;
-    private final static double e = 0.9;        // ball's coefficient of resistution
+    private double e = 0.9;        // ball's coefficient of resistution
     private final static double GRAVITY = 0.5;  // use custom gravity
     private int index;
 
-    public Ball(double positionX, double positionY, double radius, double velocityX, double velocityY, Color ballColor, int index) {
+    public Ball(double positionX, double positionY, double radius, double velocityX, double velocityY, Color ballColor, int index, double cor) {
         this.radius = radius;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -24,6 +24,7 @@ public class Ball {
         this.velocityY = velocityY;
         this.ballColor = ballColor;
         this.index = index+1;
+        this.e = cor;
     }
 
     // drawing function
@@ -35,6 +36,8 @@ public class Ball {
         g.setColor(Color.BLACK);
         g.setFont(new Font("Consolas", Font.PLAIN, 24));
         g.drawString(Integer.toString(this.index), (int)this.positionX-6, (int)this.positionY+6);
+        g.setFont(new Font("Consolas", Font.PLAIN, 12));
+        g.drawString("e:" + Double.toString(this.e), (int)this.positionX-12, (int)this.positionY+18);
         g.setColor(tempColor);
         g.setFont(tempFont);
     }

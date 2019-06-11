@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /*
@@ -29,6 +28,7 @@ import java.util.ArrayList;
      2. Create UI to add new balls and delete some instances
         > Completed!
      3. Add COR field to the UI, so user can choose between using different COR than the default or not
+        > OKOK!
      4. Turn all balls into linearly moving ones (apply Newton's first law here).
      5. Create diagonal walls and modify the calculation to adjust with diagonal walls
      6. Create UI to customize the walls
@@ -48,6 +48,7 @@ public class Dribble {
     private JLabel ballVelocityY_Label;
     private JLabel ballColor_Label;
     private JLabel ballIndexDelete_Label;
+    private JLabel ballCOR_Label;
 
     private JTextField ballPosX_Input;
     private JTextField ballPosY_Input;
@@ -59,6 +60,7 @@ public class Dribble {
     private JTextField ballColorGreen_Input;
     private JTextField ballColorBlue_Input;
     private JTextField ballIndexDelete_Input;
+    private JTextField ballCOR_Input;
 
     private JButton addBall;
     private JButton delBall;
@@ -77,7 +79,7 @@ public class Dribble {
         // ball creation window
         ballWindow = new JFrame("Create Ball");
         ballWindow.setSize(300,300);
-        ballWindow.setLayout(new GridLayout(8, 2));
+        ballWindow.setLayout(new GridLayout(9, 2));
         ballWindow.setResizable(false);
 
         ballPosX_Label = new JLabel("X Position:");
@@ -86,6 +88,7 @@ public class Dribble {
         ballVelocityX_Label = new JLabel("X Velocity:");
         ballVelocityY_Label = new JLabel("Y Velocity:");
         ballColor_Label = new JLabel("Color (R, G, B):");
+        ballCOR_Label = new JLabel("Coefficient of Resistution:");
         ballIndexDelete_Label = new JLabel("Delete Ball Number:");
 
         ballPosX_Input = new JTextField("150");
@@ -100,6 +103,7 @@ public class Dribble {
         ballColor_Panel.add(ballColorRed_Input);
         ballColor_Panel.add(ballColorGreen_Input);
         ballColor_Panel.add(ballColorBlue_Input);
+        ballCOR_Input = new JTextField("0.9");
         ballIndexDelete_Input = new JTextField();
 
         addBall = new JButton("Add");
@@ -114,7 +118,8 @@ public class Dribble {
                     Double.parseDouble(ballVelocityX_Input.getText()),
                     Double.parseDouble(ballVelocityY_Input.getText()),
                     new Color(Integer.parseInt(ballColorRed_Input.getText()), Integer.parseInt(ballColorGreen_Input.getText()), Integer.parseInt(ballColorBlue_Input.getText())),
-                    balls.size()
+                    balls.size(),
+                    Double.parseDouble(ballCOR_Input.getText())
                 ));
             }
         });
@@ -150,6 +155,8 @@ public class Dribble {
         ballWindow.add(ballVelocityY_Input);
         ballWindow.add(ballColor_Label);
         ballWindow.add(ballColor_Panel);
+        ballWindow.add(ballCOR_Label);
+        ballWindow.add(ballCOR_Input);
         ballWindow.add(ballIndexDelete_Label);
         ballWindow.add(ballIndexDelete_Input);
         ballWindow.add(addBall);
