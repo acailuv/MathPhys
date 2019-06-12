@@ -26,6 +26,7 @@ package Meeting01_GraphingApp;
         > Changed: (function1) 4*x*x-16 -> 3*x+1
         > Changed: (function2) 2*x+1 -> x-3
      3. Change the function into other functions with discontinuity, such as 1/x. What happened?
+<<<<<<< HEAD
         > Will do.
         > Changed: (function2) x-3 -> 1/x
         > Seems like the lines are 'discontinued' m'lady.
@@ -34,6 +35,9 @@ package Meeting01_GraphingApp;
         > Changed: (function1) 3*x+1 -> sin(x)*10
         > Changed: (function2) 1/x -> cos(x)*10
         > Changed function2's line color to RED for better visibility.
+=======
+     4. Change the function into trigonometric functions or any function that needs java.lang.Math library
+>>>>>>> upstream/master
      5. Change the function and fields into parametric functions
         > OK.
         > Paramtric Equation to be used: x(t) = 2*cos(t)+sin(2*t)*cos(60*t) and y=sin(2*t)+sin(60*t)
