@@ -21,16 +21,18 @@ public class DrawingArea extends JPanel {
     private int width;
     private ArrayList<Ball> balls;
     private ArrayList<Wall> walls;
+    private ArrayList<Hole> holes;
     private Thread animator;
     private BufferedImage drawingArea;
 
-    public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls, int hitterIndex, Vector destination) {
+    public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls, ArrayList<Hole> holes, int hitterIndex, Vector destination) {
         super(null);
         this.height = height;
         this.width = width;
         setBounds(0, 0, width, height);
         this.balls = balls;
         this.walls = walls;
+        this.holes = holes;
         hitter = balls.get(hitterIndex);
         this.destination = destination;
         guideline = new Line2D.Double(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
@@ -73,7 +75,7 @@ public class DrawingArea extends JPanel {
 
     private void update()
     {
-        if(press) {
+        if(press && time < 25) {
             time += TIME_INCREASE;
         }
         for(Ball b : balls)
@@ -81,6 +83,7 @@ public class DrawingArea extends JPanel {
             b.move();
             b.ballCollide(balls);
             b.wallCollide(walls);
+            b.holeCollide(holes, hitter);
         }
         guideline.setLine(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
     }
@@ -96,6 +99,10 @@ public class DrawingArea extends JPanel {
             g.setColor(Color.white);
             g.fillRect(0, 0, getWidth(), getHeight());
 
+            for(Hole h : holes) {
+                h.draw(g);
+            }
+
             for(Ball b : balls) {
                 b.draw(g);
             }
@@ -107,8 +114,6 @@ public class DrawingArea extends JPanel {
             if (guideline != null) {
                 g.setColor(Color.red);
                 g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2()-50, (int) guideline.getY2()-50);
-                // g.drawString("Mouse X:" + Double.toString(guideline.getX2()), 0, 12);
-                // g.drawString("Mouse Y:" + Double.toString(guideline.getY2()), 0, 26);
             }
 
             if (press) {

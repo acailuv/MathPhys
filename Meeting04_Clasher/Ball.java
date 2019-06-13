@@ -81,12 +81,17 @@ public class Ball {
             velocityX -= a;
             velocityY -= a;
         }
-        System.out.println(velocityX + " " + velocityY);
     }
 
     public double distance(Ball other) {
         double distanceX = this.positionX - other.getPositionX();
         double distanceY = this.positionY - other.getPositionY();
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    }
+
+    public double distance(Hole other) {
+        double distanceX = this.positionX - other.getX();
+        double distanceY = this.positionY - other.getY();
         return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     }
 
@@ -165,6 +170,14 @@ public class Ball {
                     velocityY = -2*proj.getY() + velocityY;
                 }
 
+            }
+        }
+    }
+
+    public void holeCollide(ArrayList<Hole> holes, Ball hitter) {
+        for (Hole h : holes) {
+            if(this.distance(h) <= h.getRadius() && this != hitter) {
+                Clasher.balls.remove(this);
             }
         }
     }

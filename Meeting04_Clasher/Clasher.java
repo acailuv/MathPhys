@@ -24,8 +24,9 @@ public class Clasher {
     private JFrame frame;
     private DrawingArea drawingArea;
 
-    private ArrayList<Wall> walls = new ArrayList<>();
-    private ArrayList<Ball> balls = new ArrayList<>();
+    public static ArrayList<Wall> walls = new ArrayList<>();
+    public static ArrayList<Ball> balls = new ArrayList<>();
+    public static ArrayList<Hole> holes = new ArrayList<>();
     private Ball hitter;
     private Vector destination;
 
@@ -41,13 +42,16 @@ public class Clasher {
         // create the walls
         createWalls();
 
+        //create the holes
+        createHoles();
+
         // create the ball
-        balls.add(new Ball(300, 200, 50, Color.blue, 10));
+        balls.add(new Ball(300, 200, 30, Color.blue, 10));
         hitter = new Ball(400, 400, 20, Color.green, 4);
         balls.add(hitter);
         destination = new Vector(hitter.getPositionX(), hitter.getPositionY());
 
-        drawingArea = new DrawingArea(frame.getWidth(), frame.getHeight(), balls, walls, balls.size() - 1, destination);
+        drawingArea = new DrawingArea(frame.getWidth(), frame.getHeight(), balls, walls, holes, balls.size() - 1, destination);
         frame.add(drawingArea);
 
         frame.addMouseListener(new MouseAdapter() {
@@ -92,7 +96,11 @@ public class Clasher {
 
         walls.add(new Wall(1200, 100, 100, 100, Color.black));	// horizontal top
         walls.add(new Wall(100, 600, 1200, 100, Color.black));  // horizontal bottom
-        walls.add(new Wall(100, 600, 100, 100, Color.black));  // vertical left
+        walls.add(new Wall(100, 600, 100, 100, Color.black));  // slant
+    }
+
+    private void createHoles() {
+        holes.add(new Hole(150, 150, 50)); 
     }
 
     public static void main(String[] args) {
