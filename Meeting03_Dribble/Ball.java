@@ -56,7 +56,7 @@ public class Ball {
                 double error = radius - w.distanceFromPoint(positionX, positionY);
 
                 positionX += error * w.normalLine().getX();
-                positionY += error * w.normalLine().getY();
+                positionY -= error * w.normalLine().getY();
 
                 //if the ball collided with a vertical wall
                 if(w.getWidth() == 0) {

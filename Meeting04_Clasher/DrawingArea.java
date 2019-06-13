@@ -105,7 +105,9 @@ public class DrawingArea extends JPanel {
 
             if (guideline != null) {
                 g.setColor(Color.red);
-                g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2(), (int) guideline.getY2());
+                g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2()-50, (int) guideline.getY2()-50);
+                g.drawString("Mouse X:" + Double.toString(guideline.getX2()), 0, 12);
+                g.drawString("Mouse Y:" + Double.toString(guideline.getY2()), 0, 26);
             }
         }
     }
