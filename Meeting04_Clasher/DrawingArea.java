@@ -2,6 +2,7 @@ package Meeting04_Clasher;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class DrawingArea extends JPanel {
     private double time = 0;
-    private final static double TIME_INCREASE = 0.1;
+    private final static double TIME_INCREASE = 1.;
     private boolean press = false;
     private Line2D guideline;
     private Vector destination;
@@ -108,6 +109,12 @@ public class DrawingArea extends JPanel {
                 g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2()-50, (int) guideline.getY2()-50);
                 // g.drawString("Mouse X:" + Double.toString(guideline.getX2()), 0, 12);
                 // g.drawString("Mouse Y:" + Double.toString(guideline.getY2()), 0, 26);
+            }
+
+            if (press) {
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Consolas", Font.PLAIN, 14));
+                g.drawString("Ball Power: " + Double.toString(time), 0, 14);
             }
         }
     }
