@@ -31,12 +31,8 @@ import java.util.ArrayList;
      3. Add COR field to the UI, so user can choose between using different COR than the default or not
         > OKOK!
      4. Turn all balls into linearly moving ones (apply Newton's first law here).
-<<<<<<< HEAD
-        > In Progress
-=======
         > Done.
         > Did some fine tuning.
->>>>>>> master
      5. Create diagonal walls and modify the calculation to adjust with diagonal walls
         > Roger!
      6. Create UI to customize the walls
