@@ -91,8 +91,7 @@ public class Clasher {
         // horizontal wall must be defined in counter clockwise direction
 
         walls.add(new Wall(1200, 100, 100, 100, Color.black));	// horizontal top
-        walls.add(new Wall(100, 600, 1200, 600, Color.black));  // horizontal bottom
-        walls.add(new Wall(1200, 100, 1200, 600, Color.black));  // vertical right
+        walls.add(new Wall(100, 600, 1200, 100, Color.black));  // horizontal bottom
         walls.add(new Wall(100, 600, 100, 100, Color.black));  // vertical left
     }
 

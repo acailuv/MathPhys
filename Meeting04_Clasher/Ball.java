@@ -155,6 +155,16 @@ public class Ball {
                 else if(w.getHeight() == 0) {
                     velocityY *= -1;
                 }
+
+                //if diagonal
+                else {
+                    Vector normal = w.normalLine();
+                    double c = velocityX*normal.getX() + velocityY*normal.getY();
+                    Vector proj = new Vector(c*normal.getX(), c*normal.getY());
+                    velocityX = -2*proj.getX() + velocityX;
+                    velocityY = -2*proj.getY() + velocityY;
+                }
+
             }
         }
     }
