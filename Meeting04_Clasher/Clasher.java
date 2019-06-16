@@ -47,6 +47,10 @@ public class Clasher {
 
         // create the ball
         balls.add(new Ball(210, 110, 30, Color.blue, 10));
+
+        //extra target
+        balls.add(new Ball(350, 175, 30, Color.red, 10));
+        
         hitter = new Ball(310, 310, 20, Color.green, 4);
         balls.add(hitter);
         destination = new Vector(hitter.getPositionX(), hitter.getPositionY());
