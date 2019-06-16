@@ -46,8 +46,8 @@ public class Clasher {
         createHoles();
 
         // create the ball
-        balls.add(new Ball(300, 200, 30, Color.blue, 10));
-        hitter = new Ball(400, 400, 20, Color.green, 4);
+        balls.add(new Ball(210, 110, 30, Color.blue, 10));
+        hitter = new Ball(310, 310, 20, Color.green, 4);
         balls.add(hitter);
         destination = new Vector(hitter.getPositionX(), hitter.getPositionY());
 
@@ -94,13 +94,13 @@ public class Clasher {
         // vertical wall must be defined in clockwise direction
         // horizontal wall must be defined in counter clockwise direction
 
-        walls.add(new Wall(1200, 100, 100, 100, Color.black));	// horizontal top
-        walls.add(new Wall(100, 600, 1200, 100, Color.black));  // horizontal bottom
-        walls.add(new Wall(100, 600, 100, 100, Color.black));  // slant
+        walls.add(new Wall(10, 10, 1000, 10, Color.black));	// horizontal top
+        walls.add(new Wall(10, 600, 1200, 10, Color.black));  // horizontal bottom
+        walls.add(new Wall(10, 600, 10, 10, Color.black));  // slant
     }
 
     private void createHoles() {
-        holes.add(new Hole(150, 150, 50)); 
+        holes.add(new Hole(60, 60, 50)); 
     }
 
     public static void main(String[] args) {
