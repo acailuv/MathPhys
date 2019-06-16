@@ -226,6 +226,8 @@ public class Dribble {
         ballWindow.add(ballLinearMove_Check);
         ballWindow.add(ballIndexDelete_Label);
         ballWindow.add(ballIndexDelete_Input);
+        ballWindow.add(ballLinearMove_Label);
+        ballWindow.add(ballLinearMove_Check);
         ballWindow.add(addBall);
         ballWindow.add(delBall);
         ballWindow.setLocation(1500, 100);
