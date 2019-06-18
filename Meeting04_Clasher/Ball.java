@@ -174,7 +174,6 @@ public class Ball {
                     velocityX = -2*proj.getX() + velocityX;
                     velocityY = -2*proj.getY() + velocityY;
                 }
-
             }
         }
     }
