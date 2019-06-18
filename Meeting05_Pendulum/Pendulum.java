@@ -37,7 +37,7 @@ public class Pendulum extends JFrame {
 		private double mousePressedX;
 		private double mousePressedY;
 
-		private int maxBalls = 7;
+		private int maxBalls = 2;
 		private double ropeLength = 400;
 		private double ballSize = 40;
 		private double firstRopeX = 600;

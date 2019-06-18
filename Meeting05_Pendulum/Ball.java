@@ -2,6 +2,7 @@ package Meeting05_Pendulum;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class Ball {
 	// (positionX,positionY) the position of the ball in screen coordinate
@@ -22,7 +23,7 @@ public class Ball {
 	private final static double DECELERATION = 0.0005;
 
 	// Elasticity coefficient for collision between balls
-	private final static double e = 0.9;
+	private final static double e = 1.0;
 	
 	// The ball's state whether it is attached to a rope or not
 	private boolean isAttached;
@@ -187,4 +188,25 @@ public class Ball {
 				
 			
 	}
+
+	public void ballCollide(ArrayList<Ball> balls) {
+        for (Ball b: balls) {
+            if (b != this && this.distance(b) <= this.radius + b.getRadius()) {
+				double v1;
+				double v2;
+
+				v1 = (0.5*(1-e)*this.velocity.getX());
+				v2 = (0.5*(1+e)*this.velocity.getX());
+				
+				this.velocity.setX(v1);
+				b.velocity.setX(v2);
+            }
+        }
+    }
+	
+	public double distance(Ball other) {
+        double distanceX = this.positionX - other.getPositionX();
+        double distanceY = this.positionY - other.getPositionY();
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    }
 }

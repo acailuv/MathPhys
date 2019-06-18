@@ -53,6 +53,7 @@ public class DrawingArea extends JPanel {
             for(Ball b: balls)
             {					
                 b.move();
+                b.ballCollide(balls);
             }
         }
     }
