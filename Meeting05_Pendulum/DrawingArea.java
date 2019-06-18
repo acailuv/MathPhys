@@ -122,20 +122,31 @@ public class DrawingArea extends JPanel {
         Font bold = new Font("Consolas", Font.BOLD, 16);
         Font plain = new Font("Consolas", Font.PLAIN, 16);
 
-        String ln1 = "How to Play:";
+        String howToPlay = "How to Play:";
         String ln2 = "> Swing the pendulum.";
         String ln3 = "> Target the Pendulum's Ball with the mouse.";
         String ln4 = "> Press SPACE to shoot!";
+
+        String extraNote = "Extra Note:";
         String ln5 = "> Shoot moving target to get extra points~";
         String ln6 = "> Make the best out of 5 bullets.";
-        String ln7 = "> Game will end if you ran out of bullets.";
+        String ln7 = "> Game will end when you ran out of bullets.";
         String ln8 = "> Shoot all pendulums to get even more points!";
+
+        String scoreList = "Score List:";
+        String ln9 = "> Hit the ball (+10pts)";
+        String ln10 = "  [!] Bonus Score: [Speed of Ball].";
+        String ln11 = "  [!] \"The faster the ball, the higher the bonus\"";
+        String ln12 = "> All Pendulums Hit! (+100pts)";
+        String ln13 = "  [!] Tip: Swing all pendulums before shooting to";
+        String ln14 = "           maximize your score!";
+
 
         int currentY = 100;
         int padding = 18;
 
         g.setFont(bold);
-        g.drawString(ln1, 0, currentY);
+        g.drawString(howToPlay, 0, currentY);
         currentY += padding;
         g.setFont(plain);
         g.drawString(ln2, 0, currentY);
@@ -144,6 +155,11 @@ public class DrawingArea extends JPanel {
         currentY += padding;
         g.drawString(ln4, 0, currentY);
         currentY += 2*padding;
+
+        g.setFont(bold);
+        g.drawString(extraNote, 0, currentY);
+        currentY += padding;
+        g.setFont(plain);
         g.drawString(ln5, 0, currentY);
         currentY += padding;
         g.drawString(ln6, 0, currentY);
@@ -151,6 +167,23 @@ public class DrawingArea extends JPanel {
         g.drawString(ln7, 0, currentY);
         currentY += padding;
         g.drawString(ln8, 0, currentY);
+        currentY += 2*padding;
+
+        g.setFont(bold);
+        g.drawString(scoreList, 0, currentY);
+        currentY += padding;
+        g.setFont(plain);
+        g.drawString(ln9, 0, currentY);
+        currentY += padding;
+        g.drawString(ln10, 0, currentY);
+        currentY += padding;
+        g.drawString(ln11, 0, currentY);
+        currentY += padding;
+        g.drawString(ln12, 0, currentY);
+        currentY += padding;
+        g.drawString(ln13, 0, currentY);
+        currentY += padding;
+        g.drawString(ln14, 0, currentY);
 
         g.setFont(new Font("Consolas", Font.PLAIN, 24));
     }

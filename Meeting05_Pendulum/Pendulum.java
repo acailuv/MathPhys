@@ -38,6 +38,7 @@ public class Pendulum extends JFrame {
 
 		public static int SCORE = 0;
 		public static int BULLETS = 5;
+		private boolean allPendulumScoreGiven = false;
 				
 		private double mousePressedX;
 		private double mousePressedY;
@@ -153,9 +154,13 @@ public class Pendulum extends JFrame {
 		
 		public void detectBallHit() {
 			for(Ball b: balls) {
-				if(b.distance(new Vector(mouseLocation.getX(), mouseLocation.getY())) <= b.getRadius()) {
+				if(b.distance(new Vector(mouseLocation.getX(), mouseLocation.getY())) <= b.getRadius()*1.5) {
 					b.setColor(Color.green);
 					b.setHit(true);
+					if(checkAllHit() && allPendulumScoreGiven == false) {
+						allPendulumScoreGiven = true;
+						Pendulum.SCORE += 100;
+					}
 					Pendulum.SCORE += 10 + Math.abs(b.getVelocity().getX()*10);
 				}
 			}
@@ -174,6 +179,15 @@ public class Pendulum extends JFrame {
 				//attach the ball to the rope
 				ropes.get(ropes.size()-1).attach(balls.get(balls.size()-1));				
 			}
+		}
+
+		public boolean checkAllHit() {
+			for(Ball b: balls) {
+				if(b.getHit() == false) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 		public static void main(String[] args)
