@@ -13,6 +13,8 @@ package Meeting05_Pendulum;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -33,21 +35,28 @@ public class Pendulum extends JFrame {
 		//Variables
 		private Ball selectedBall;
 		private Rope selectedRope;
+
+		public static int SCORE = 0;
+		public static int BULLETS = 5;
+		private boolean allPendulumScoreGiven = false;
 				
 		private double mousePressedX;
 		private double mousePressedY;
 
-		private int maxBalls = 2;
+		private int maxBalls = 4;
 		private double ropeLength = 400;
 		private double ballSize = 40;
 		private double firstRopeX = 600;
 		private double incX = 0.1;
+
+		private Vector mouseLocation = new Vector();
 		
 		public static final double GRAVITY = 0.098;
 		
 		public Pendulum()
 		{
 			//configure the main canvas
+			setTitle("Shoot the Pendulum");
 			setExtendedState(MAXIMIZED_BOTH);
 			setBackground(Color.WHITE);
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -116,12 +125,48 @@ public class Pendulum extends JFrame {
 						}
 					}
 				}
+
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					super.mouseMoved(e);
+					mouseLocation.setV(e.getX(), e.getY());
+				}
+			});
+
+			addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					super.keyReleased(e);
+					switch (e.getKeyCode()) {
+						case KeyEvent.VK_SPACE:
+							if(Pendulum.BULLETS > 0) {
+								detectBallHit();
+								Pendulum.BULLETS--;
+							}
+							break;
+					}
+				}
 			});
 
 			//start the thread to draw functions to canvas
 			drawingArea.start();
 		}
 		
+		public void detectBallHit() {
+			for(Ball b: balls) {
+				if(b.distance(new Vector(mouseLocation.getX(), mouseLocation.getY())) <= b.getRadius()*1.5) {
+					b.setColor(Color.green);
+					b.setHit(true);
+					if(checkAllHit() && allPendulumScoreGiven == false) {
+						allPendulumScoreGiven = true;
+						Pendulum.SCORE += 100;
+					}
+					Pendulum.SCORE += 10 + Math.abs(b.getVelocity().getX()*10);
+				}
+			}
+		}
+
+
 		public void addPendulum()
 		{
 			if(balls.size() < maxBalls)
@@ -134,6 +179,15 @@ public class Pendulum extends JFrame {
 				//attach the ball to the rope
 				ropes.get(ropes.size()-1).attach(balls.get(balls.size()-1));				
 			}
+		}
+
+		public boolean checkAllHit() {
+			for(Ball b: balls) {
+				if(b.getHit() == false) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 		public static void main(String[] args)
