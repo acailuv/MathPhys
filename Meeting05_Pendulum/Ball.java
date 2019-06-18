@@ -30,6 +30,8 @@ public class Ball {
 	
 	// The rope on whom the ball is attached to
 	private Rope rope;
+
+	private boolean isHit = false;
 	
 	public Ball(double positionX, double positionY, double radius, double vx, double vy, Color ballColor, double mass)
 	{
@@ -208,5 +210,27 @@ public class Ball {
         double distanceX = this.positionX - other.getPositionX();
         double distanceY = this.positionY - other.getPositionY();
         return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    }
+	}
+	
+	public double distance(Vector point) {
+		double distanceX = this.positionX - point.getX();
+        double distanceY = this.positionY - point.getY();
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+	}
+
+	public Vector getVelocity() {
+		return velocity;
+	}
+
+	public void setColor(Color c) {
+		this.ballColor = c;
+	}
+
+	public void setHit(boolean b) {
+		this.isHit = b;
+	}
+
+	public boolean getHit() {
+		return isHit;
+	}
 }
