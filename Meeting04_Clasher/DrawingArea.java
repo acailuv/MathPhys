@@ -119,7 +119,7 @@ public class DrawingArea extends JPanel {
             if (press) {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Consolas", Font.PLAIN, 14));
-                g.drawString("Ball Power: " + Double.toString(time), 0, 14);
+                g.drawString("Ball Power: " + Double.toString(time), getWidth()-150, 14);
             }
         }
     }

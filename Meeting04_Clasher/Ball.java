@@ -148,21 +148,26 @@ public class Ball {
             if(w.distanceFromPoint(positionX, positionY) <= radius) {
                 double error = radius - w.distanceFromPoint(positionX, positionY);
 
-                positionX += error * w.normalLine().getX();
-                positionY -= error * w.normalLine().getY();
-
                 //if the ball collided with a vertical wall
                 if(w.getWidth() == 0) {
+                    positionX += error * w.normalLine().getX();
+                    positionY -= error * w.normalLine().getY();
                     velocityX *= -1;
                 }
 
                 //if the ball collided with a horizontal wall
                 else if(w.getHeight() == 0) {
-                    velocityY *= -1;
+                    if (positionX <= w.getEndX() && positionX >= w.getStartX()) {
+                        positionX += error * w.normalLine().getX();
+                        positionY -= error * w.normalLine().getY();
+                        velocityY *= -1;
+                    }
                 }
 
                 //if diagonal
                 else {
+                    positionX += error * w.normalLine().getX();
+                    positionY -= error * w.normalLine().getY();
                     Vector normal = w.normalLine();
                     double c = velocityX*normal.getX() + velocityY*normal.getY();
                     Vector proj = new Vector(c*normal.getX(), c*normal.getY());
