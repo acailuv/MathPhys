@@ -12,7 +12,7 @@ public class Ball {
 	private double velocityX = 0;          // ball's velocity
 	private double velocityY = 0;
 	private final static double e = 1;     // ball's coefficient of resistution
-	private final static double a = 0.005; // ball's deceleration/fraction
+	private final static double a = 0.99; // ball's deceleration/fraction ratio
 	public final static double MASS = 200.0;
 	public boolean toBeDeleted = false;
 	private int ballNumber;
@@ -98,9 +98,12 @@ public class Ball {
 			// System.out.println("Vel: " + Double.toString(velocity));
 		}
 
-		if (velocity > 0) {
-			velocityX -= a;
-			velocityY -= a;
+		if (velocity > 0.1) {
+			velocityX *= a;
+			velocityY *= a;
+		} else {
+			velocityX = 0;
+			velocityY = 0;
 		}
 	}
 
@@ -180,13 +183,13 @@ public class Ball {
             if(this.distance(h) <= h.getRadius() && this != hitter) {
 				this.toBeDeleted = true;
 				if (ballNumber != 8) {
-					// Billiard.SCORE += 10;
+					Billiard.SCORE += 10;
 				} else {
-					if(Billiard.balls.size() > 1) {
-						// Billiard.SCORE -= 1000;
+					if(Billiard.balls.size() > 2) {
+						Billiard.SCORE -= 1000;
+						Billiard.fail = true;
 					} else {
-						// Billiard.SCORE += 1000;
-						// Billiard.fail = true;
+						Billiard.SCORE += 1000;
 					}
 				}
 				break;

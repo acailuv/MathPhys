@@ -29,8 +29,8 @@ public class Billiard {
 	private Vector destination;
 	private DrawingArea drawingArea;
 
-	// public static int SCORE = 0;
-	// public static boolean fail = false;
+	public static int SCORE = 0;
+	public static boolean fail = false;
 
 	//The collections of walls to be drawn
 	public static ArrayList<Wall> walls = new ArrayList<>();

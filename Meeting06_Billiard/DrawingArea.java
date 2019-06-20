@@ -112,9 +112,10 @@ public class DrawingArea extends JPanel {
                 b.draw(g);
             }
 
-            // g.setColor(Color.BLACK);
-            // g.setFont(new Font("Consolas", Font.PLAIN, 20));
-            // g.drawString("Score: " + Integer.toString(Billiard.SCORE), 0, 20);
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("Consolas", Font.PLAIN, 20));
+            g.drawString("Score: " + Integer.toString(Billiard.SCORE), 0, 20);
+            g.drawString("How to Play: Score the 8 ball last to get maximum score and win!", 0, 42);
 
             if (guideline != null) {
                 g.setColor(Color.red);
@@ -127,16 +128,16 @@ public class DrawingArea extends JPanel {
                 g.drawString("Ball Power: " + Double.toString(time), getWidth()-150, 14);
             }
 
-            // if (balls.size() == 1) {
-            //     g.setFont(new Font("Consolas", Font.PLAIN, 24));
-            //     g.setColor(Color.black);
-            //     g.drawString("GAME OVER!", getWidth()/2, getHeight()/2);
-            //     g.setFont(new Font("Consolas", Font.PLAIN, 16));
-            //     g.drawString("Final Score:", getWidth()/2, getHeight()/2+26);
-            //     if(Billiard.fail == true) {
-            //         g.drawString("EPIC FAIL! You have to score the 8 ball after you score others first!", getWidth()/2, getHeight()/2+26+18);
-            //     }
-            // }
+            if (balls.size() == 1) {
+                g.setFont(new Font("Consolas", Font.PLAIN, 24));
+                g.setColor(Color.black);
+                g.drawString("GAME OVER!", getWidth()/2, getHeight()/2);
+                g.setFont(new Font("Consolas", Font.PLAIN, 16));
+                g.drawString("Final Score: " + Integer.toString(Billiard.SCORE), getWidth()/2, getHeight()/2+26);
+                if(Billiard.fail == true) {
+                    g.drawString("EPIC FAIL! You have to score the 8 ball after you score others first!", getWidth()/2, getHeight()/2+26+18);
+                }
+            }
         }
     }
 
