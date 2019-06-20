@@ -17,6 +17,7 @@ public class DrawingArea extends JPanel {
     private int width;
     private ArrayList<Ball> balls;
     private ArrayList<Wall> walls;
+    private ArrayList<Hole> holes;
     private Thread animator;
     private BufferedImage drawingArea;
     private Line2D guideline;
@@ -24,13 +25,14 @@ public class DrawingArea extends JPanel {
     private Ball hitter;
     private Vector destination;
 
-    public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls, Vector destination) {
+    public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls, ArrayList<Hole> holes, Vector destination) {
         super(null);
         this.height = height;
         this.width = width;
         setBounds(0, 0, width, height);
         this.balls = balls;
         this.walls = walls;
+        this.holes = holes;
         this.hitter = balls.get(HITTER_INDEX);
         this.destination = destination;
         guideline = new Line2D.Double(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
@@ -81,6 +83,8 @@ public class DrawingArea extends JPanel {
             b.move();
             b.wallCollide(walls);
             b.ballCollide(balls);
+            b.holeCollideCheck(holes, hitter);
+            holeCollideDeletion();
         }
         guideline.setLine(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
     }
@@ -96,6 +100,10 @@ public class DrawingArea extends JPanel {
             g.setColor(Color.white);
             g.fillRect(0, 0, getWidth(), getHeight());
 
+            for(Hole w : holes) {
+                w.draw(g);
+            }
+
             for(Wall w : walls) {
                 w.draw(g);
             }
@@ -103,6 +111,10 @@ public class DrawingArea extends JPanel {
             for(Ball b : balls) {
                 b.draw(g);
             }
+
+            // g.setColor(Color.BLACK);
+            // g.setFont(new Font("Consolas", Font.PLAIN, 20));
+            // g.drawString("Score: " + Integer.toString(Billiard.SCORE), 0, 20);
 
             if (guideline != null) {
                 g.setColor(Color.red);
@@ -114,6 +126,17 @@ public class DrawingArea extends JPanel {
                 g.setFont(new Font("Consolas", Font.PLAIN, 14));
                 g.drawString("Ball Power: " + Double.toString(time), getWidth()-150, 14);
             }
+
+            // if (balls.size() == 1) {
+            //     g.setFont(new Font("Consolas", Font.PLAIN, 24));
+            //     g.setColor(Color.black);
+            //     g.drawString("GAME OVER!", getWidth()/2, getHeight()/2);
+            //     g.setFont(new Font("Consolas", Font.PLAIN, 16));
+            //     g.drawString("Final Score:", getWidth()/2, getHeight()/2+26);
+            //     if(Billiard.fail == true) {
+            //         g.drawString("EPIC FAIL! You have to score the 8 ball after you score others first!", getWidth()/2, getHeight()/2+26+18);
+            //     }
+            // }
         }
     }
 
@@ -136,5 +159,15 @@ public class DrawingArea extends JPanel {
         {
             System.out.println("Graphics error: " + ex);
         }
+    }
+
+    public void holeCollideDeletion() {
+        ArrayList<Ball> newBalls = new ArrayList<>();
+        for(Ball b: balls) {
+            if (b.toBeDeleted == false) {
+                newBalls.add(b);
+            }
+        }
+        balls = newBalls;
     }
 }

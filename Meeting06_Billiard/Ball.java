@@ -14,6 +14,7 @@ public class Ball {
 	private final static double e = 1;     // ball's coefficient of resistution
 	private final static double a = 0.005; // ball's deceleration/fraction
 	public final static double MASS = 200.0;
+	public boolean toBeDeleted = false;
 	private int ballNumber;
 
 	private Color ballColor;
@@ -109,6 +110,12 @@ public class Ball {
 		return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 	}
 
+	public double distance(Hole other) {
+        double distanceX = this.positionX - other.getX();
+        double distanceY = this.positionY - other.getY();
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    }
+
 	public void ballCollide(ArrayList<Ball> balls) {
         for (Ball b: balls) {
             if (b != this && this.distance(b) <= 2*Ball.RADIUS) {
@@ -144,27 +151,6 @@ public class Ball {
 
                 b.setVelocityX(NewV2x * CVectorX + NewV2y * NVectorX);
                 b.setVelocityY(NewV2x * CVectorY + NewV2y * NVectorY);
-
-                // while(this.distance(b) < (2*Ball.RADIUS))
-                // {
-                //     this.positionX += velocityX;
-                //     this.positionY -= velocityY;
-                //     b.setPositionX(b.getPositionX() + b.getVelocityX());
-                //     b.setPositionY(b.getPositionY() - b.getVelocityY());
-				// }
-				
-				// if (this.distance(b) < 2*Ball.RADIUS) {
-				// 	double arc = Math.atan(this.velocityY/this.velocityX);
-				// 	double intersectValue = 2*Ball.RADIUS - this.distance(b);
-
-				// 	double offsetX = intersectValue * Math.cos(arc);
-				// 	double offsetY = intersectValue * Math.sin(arc);
-
-				// 	this.positionX += offsetX;
-				// 	this.positionY -= offsetY;
-				// 	b.setPositionX(b.getPositionX() - offsetX);
-				// 	b.setPositionY(b.getPositionY() + offsetY);
-				// }
             }
 		}
 	}
@@ -187,5 +173,24 @@ public class Ball {
                 }
             }
         }
-    }
+	}
+	
+	public void holeCollideCheck(ArrayList<Hole> holes, Ball hitter) {
+        for (Hole h : holes) {
+            if(this.distance(h) <= h.getRadius() && this != hitter) {
+				this.toBeDeleted = true;
+				if (ballNumber != 8) {
+					// Billiard.SCORE += 10;
+				} else {
+					if(Billiard.balls.size() > 1) {
+						// Billiard.SCORE -= 1000;
+					} else {
+						// Billiard.SCORE += 1000;
+						// Billiard.fail = true;
+					}
+				}
+				break;
+            }
+        }
+	}
 }

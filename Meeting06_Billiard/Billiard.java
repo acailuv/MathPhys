@@ -29,9 +29,13 @@ public class Billiard {
 	private Vector destination;
 	private DrawingArea drawingArea;
 
+	// public static int SCORE = 0;
+	// public static boolean fail = false;
+
 	//The collections of walls to be drawn
 	public static ArrayList<Wall> walls = new ArrayList<>();
 	public static ArrayList<Ball> balls = new ArrayList<>();
+	public static ArrayList<Hole> holes = new ArrayList<>();
 
 	private Billiard() {
 		//configure the main canvas
@@ -47,7 +51,7 @@ public class Billiard {
 		Ball hitter = new Ball(frameWidth/3, frameHeight/2, Color.GRAY, 0);
 		balls.add(hitter);
 		destination = new Vector(hitter.getPositionX(), hitter.getPositionY());
-		drawingArea = new DrawingArea(frame.getWidth(), frameHeight, balls, walls, destination);
+		drawingArea = new DrawingArea(frame.getWidth(), frameHeight, balls, walls, holes, destination);
 
 		frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -101,6 +105,14 @@ public class Billiard {
 		walls.add(new Wall(wallX, wallHeight + wallY, wallX, wallY));	// left wall
 		walls.add(new Wall(wallWidth + wallX, wallY, wallWidth + wallX, wallHeight + wallY));	// right wall
 		walls.add(new Wall(wallX, wallHeight + wallY, wallWidth + wallX, wallHeight + wallY));	// bottom wall
+
+
+		// holes
+		holes.add(new Hole(wallX+50, wallY+50, 50));
+		holes.add(new Hole(wallX+50, wallY+wallHeight-50, 50));
+		holes.add(new Hole(wallWidth+wallX-50, wallY+50, 50));
+		holes.add(new Hole(wallWidth+wallX-50, wallY+wallHeight-50, 50));
+
 
 		create8Ball(2*frameWidth/3, frameHeight/2);
 	}
