@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DrawingArea extends JPanel {
     private double time = 0;
-    private final static double TIME_INCREASE = 0.1;
+    private final static double TIME_INCREASE = 1.;
     private boolean press = false;
     private int height;
     private int width;
@@ -19,10 +19,10 @@ public class DrawingArea extends JPanel {
     private ArrayList<Wall> walls;
     private Thread animator;
     private BufferedImage drawingArea;
-    // private Line2D guideline;
-    // private final static int HITTER_INDEX = 0;
-    // private Ball hitter;
-    // private Vector destination;
+    private Line2D guideline;
+    private final static int HITTER_INDEX = 0;
+    private Ball hitter;
+    private Vector destination;
 
     public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls, Vector destination) {
         super(null);
@@ -31,9 +31,9 @@ public class DrawingArea extends JPanel {
         setBounds(0, 0, width, height);
         this.balls = balls;
         this.walls = walls;
-        // this.hitter = balls.get(HITTER_INDEX);
-        // this.destination = destination;
-        // guideline = new Line2D.Double(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
+        this.hitter = balls.get(HITTER_INDEX);
+        this.destination = destination;
+        guideline = new Line2D.Double(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
         animator = new Thread(this::eventLoop);
     }
 
@@ -73,14 +73,14 @@ public class DrawingArea extends JPanel {
 
     private void update()
     {
-        if(press) {
+        if(press && time < 25) {
             time += TIME_INCREASE;
         }
         for(Ball b : balls)
         {
             b.move();
         }
-        // guideline.setLine(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
+        guideline.setLine(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
     }
 
     private void render()
@@ -102,16 +102,16 @@ public class DrawingArea extends JPanel {
                 b.draw(g);
             }
 
-            // if (guideline != null) {
-            //     g.setColor(Color.red);
-            //     g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2()-50, (int) guideline.getY2()-50);
-            // }
+            if (guideline != null) {
+                g.setColor(Color.red);
+                g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2(), (int) guideline.getY2()-(int)Ball.RADIUS);
+            }
 
-            // if (press) {
-            //     g.setColor(Color.BLACK);
-            //     g.setFont(new Font("Consolas", Font.PLAIN, 14));
-            //     g.drawString("Ball Power: " + Double.toString(time), getWidth()-150, 14);
-            // }
+            if (press) {
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Consolas", Font.PLAIN, 14));
+                g.drawString("Ball Power: " + Double.toString(time), getWidth()-150, 14);
+            }
         }
     }
 
