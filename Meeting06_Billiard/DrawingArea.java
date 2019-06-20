@@ -2,6 +2,7 @@ package Meeting06_Billiard;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
@@ -18,15 +19,21 @@ public class DrawingArea extends JPanel {
     private ArrayList<Wall> walls;
     private Thread animator;
     private BufferedImage drawingArea;
+    // private Line2D guideline;
+    // private final static int HITTER_INDEX = 0;
+    // private Ball hitter;
+    // private Vector destination;
 
-    public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls) {
+    public DrawingArea(int width, int height, ArrayList<Ball> balls, ArrayList<Wall> walls, Vector destination) {
         super(null);
         this.height = height;
         this.width = width;
         setBounds(0, 0, width, height);
         this.balls = balls;
         this.walls = walls;
-
+        // this.hitter = balls.get(HITTER_INDEX);
+        // this.destination = destination;
+        // guideline = new Line2D.Double(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
         animator = new Thread(this::eventLoop);
     }
 
@@ -73,6 +80,7 @@ public class DrawingArea extends JPanel {
         {
             b.move();
         }
+        // guideline.setLine(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
     }
 
     private void render()
@@ -93,6 +101,17 @@ public class DrawingArea extends JPanel {
             for(Ball b : balls) {
                 b.draw(g);
             }
+
+            // if (guideline != null) {
+            //     g.setColor(Color.red);
+            //     g.drawLine((int) guideline.getX1(), (int) guideline.getY1(), (int) guideline.getX2()-50, (int) guideline.getY2()-50);
+            // }
+
+            // if (press) {
+            //     g.setColor(Color.BLACK);
+            //     g.setFont(new Font("Consolas", Font.PLAIN, 14));
+            //     g.drawString("Ball Power: " + Double.toString(time), getWidth()-150, 14);
+            // }
         }
     }
 

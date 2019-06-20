@@ -14,6 +14,8 @@ package Meeting06_Billiard;
  */
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,6 +26,8 @@ public class Billiard {
 	private JFrame frame;
 	private int frameHeight;
 	private int frameWidth;
+	private Vector destination;
+	private DrawingArea drawingArea;
 
 	//The collections of walls to be drawn
 	private ArrayList<Wall> walls = new ArrayList<>();
@@ -40,10 +44,47 @@ public class Billiard {
 		frameHeight = frame.getHeight() - frame.getInsets().top;
 		frameWidth = frame.getWidth();
 
-		createObjects();
+		Ball hitter = new Ball(frameWidth/3, frameHeight/2, Color.GRAY, 0);
+		balls.add(hitter);
+		// destination = new Vector(hitter.getPositionX(), hitter.getPositionY());
+		drawingArea = new DrawingArea(frame.getWidth(), frameHeight, balls, walls, destination);
 
-		DrawingArea drawingArea = new DrawingArea(frame.getWidth(), frameHeight, balls, walls);
+		// frame.addMouseListener(new MouseAdapter() {
+        //     @Override
+        //     public void mousePressed(MouseEvent e) {
+        //         super.mousePressed(e);
+        //         drawingArea.setPress(true);
+        //         destination.setX((double) e.getX());
+        //         destination.setY((double) e.getY());
+        //     }
+
+        //     @Override
+        //     public void mouseReleased(MouseEvent e) {
+        //         super.mouseReleased(e);
+
+        //         double distanceX = e.getX() - hitter.getPositionX();
+        //         double distanceY = e.getY() - hitter.getPositionY();
+        //         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+        //         hitter.setVelocityX(drawingArea.getTime() * distanceX / distance);
+        //         hitter.setVelocityY(drawingArea.getTime() * distanceY / distance);
+
+        //         drawingArea.setPress(false);
+        //     }
+		// });
+		
+		// frame.addMouseMotionListener(new MouseAdapter() {
+        //     @Override
+        //     public void mouseMoved(MouseEvent e) {
+        //         super.mouseMoved(e);
+        //         destination.setX((double) e.getX());
+        //         destination.setY((double) e.getY());
+        //     }
+        // });
+
 		frame.add(drawingArea);
+
+		createObjects();
 
 		drawingArea.start();
 	}

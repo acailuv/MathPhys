@@ -67,9 +67,11 @@ public class Ball {
 		g.fillOval((int) (positionX - RADIUS), (int) (positionY - RADIUS), (int) (2 * RADIUS), (int) (2 * RADIUS));
 		g.setColor(Color.black);
 		g.drawOval((int) (positionX - RADIUS), (int) (positionY - RADIUS), (int) (2 * RADIUS), (int) (2 * RADIUS));
-		g.setColor(Color.white);
-		g.setFont(new Font("Consolas", Font.BOLD, 16));
-		g.drawString(Integer.toString(ballNumber), (int)positionX-2, (int)positionY+8);
+		if(ballNumber > 0) {
+			g.setColor(Color.white);
+			g.setFont(new Font("Consolas", Font.BOLD, 16));
+			g.drawString(Integer.toString(ballNumber), (int)positionX-2, (int)positionY+8);
+		}
 		g.setColor(tempColor);
 		g.setFont(tempFont);
 	}
