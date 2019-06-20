@@ -79,6 +79,8 @@ public class DrawingArea extends JPanel {
         for(Ball b : balls)
         {
             b.move();
+            b.wallCollide(walls);
+            b.ballCollide(balls);
         }
         guideline.setLine(hitter.getPositionX(), hitter.getPositionY(), destination.getX(), destination.getY());
     }

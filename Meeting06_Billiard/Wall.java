@@ -46,8 +46,8 @@ public class Wall {
 		wallVector.setY(y2-y1);
 		
 		//calculate the normal vector, then calculate the unit vector
-		normVectorY = 1;
-		normVectorX = (-1)*(wallVector.getY()/wallVector.getX());
+		normVectorY = wallVector.getX();
+		normVectorX = (-1)*wallVector.getY();
 		
 		//System.out.println(normVector.getX() + " - " + normVector.getY());	
 		double normVectorLength = Math.sqrt(normVectorX*normVectorX + normVectorY*normVectorY);		

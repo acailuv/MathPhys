@@ -30,8 +30,8 @@ public class Billiard {
 	private DrawingArea drawingArea;
 
 	//The collections of walls to be drawn
-	private ArrayList<Wall> walls = new ArrayList<>();
-	private ArrayList<Ball> balls = new ArrayList<>();
+	public static ArrayList<Wall> walls = new ArrayList<>();
+	public static ArrayList<Ball> balls = new ArrayList<>();
 
 	private Billiard() {
 		//configure the main canvas
@@ -82,9 +82,9 @@ public class Billiard {
             }
         });
 
-		frame.add(drawingArea);
-
 		createObjects();
+
+		frame.add(drawingArea);
 
 		drawingArea.start();
 	}
@@ -99,13 +99,13 @@ public class Billiard {
 		// horizontal wall must be defined in counter clockwise direction
 		walls.add(new Wall(wallWidth + wallX, wallY, wallX, wallY));	// top wall
 		walls.add(new Wall(wallX, wallHeight + wallY, wallX, wallY));	// left wall
-		walls.add(new Wall(wallWidth + wallX, wallY, wallWidth + wallX, wallHeight + wallY));	// bottom wall
-		walls.add(new Wall(wallWidth + wallX, wallHeight + wallY, wallX, wallHeight + wallY));	// right wall
+		walls.add(new Wall(wallWidth + wallX, wallY, wallWidth + wallX, wallHeight + wallY));	// right wall
+		walls.add(new Wall(wallX, wallHeight + wallY, wallWidth + wallX, wallHeight + wallY));	// bottom wall
 
 		create8Ball(2*frameWidth/3, frameHeight/2);
 	}
 
-	public void create8Ball(double startPositionX, double startPositionY) {
+	public void create8BallTight(double startPositionX, double startPositionY) {
 		Random randomGenerator = new Random();
 		int ballNumber = 1;
 		for(int i=1; i<=5; i++) {
@@ -127,6 +127,32 @@ public class Billiard {
 			}
 			startPositionX += Ball.RADIUS*Math.sqrt(3.0);
 			startPositionY -= 2*i*Ball.RADIUS + Ball.RADIUS;
+		}
+	}
+
+	public void create8Ball(double startPositionX, double startPositionY) {
+		Random randomGenerator = new Random();
+		int ballNumber = 1;
+		startPositionY -= Ball.RADIUS;
+		for(int i=1; i<=5; i++) {
+			for(int j=0; j<i; j++) {
+				Color c = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+				c.darker();
+
+				balls.add(new Ball(startPositionX, startPositionY, c, ballNumber));
+
+				if(ballNumber == 5) {
+					balls.get(balls.size()-1).setBallNumber(8);
+					balls.get(balls.size()-1).setBallColor(Color.BLACK);
+				} else if(ballNumber == 8) {
+					balls.get(balls.size()-1).setBallNumber(5);
+				}
+
+				ballNumber++;
+				startPositionY += 2*Ball.RADIUS + 15;
+			}
+			startPositionX += 2.5*Ball.RADIUS;
+			startPositionY -= 2*i*Ball.RADIUS + Ball.RADIUS + i*15;
 		}
 	}
 
