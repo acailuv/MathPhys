@@ -86,14 +86,13 @@ public class DrawingArea extends JPanel {
             g.setColor(Color.white);
             g.fillRect(0, 0, getWidth(), getHeight());
 
-            for(Ball b : balls) {
-                b.draw(g);
-            }
-
             for(Wall w : walls) {
                 w.draw(g);
             }
-
+            
+            for(Ball b : balls) {
+                b.draw(g);
+            }
         }
     }
 
